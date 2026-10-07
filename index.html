@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Control de Guardia | AppNova Solutions</title>
+
+    <link rel="stylesheet" href="css/styles.css">
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+
+<body>
+
+<div class="app">
+
+    <!-- =========================
+         SIDEBAR
+    ========================== -->
+
+    <aside class="sidebar">
+
+        <div class="brand">
+            <div class="brand-icon">
+                <i class="fa-solid fa-a"></i>
+            </div>
+
+            <div>
+                <h2>AppNova</h2>
+                <span>Solutions</span>
+            </div>
+        </div>
+
+        <nav class="sidebar-nav">
+
+            <a href="#" class="nav-item">
+                <i class="fa-solid fa-house"></i>
+                <span>Inicio</span>
+            </a>
+
+            <p class="nav-title">CONTROL DE GUARDIA</p>
+
+            <a href="#" class="nav-item">
+                <i class="fa-solid fa-users"></i>
+                <span>Residentes</span>
+            </a>
+
+            <a href="#" class="nav-item active">
+                <i class="fa-solid fa-car"></i>
+                <span>Estacionamientos</span>
+            </a>
+
+            <a href="#" class="nav-item">
+                <i class="fa-solid fa-user-clock"></i>
+                <span>Visitas</span>
+            </a>
+
+            <a href="#" class="nav-item">
+                <i class="fa-solid fa-box"></i>
+                <span>Encomiendas</span>
+            </a>
+
+            <p class="nav-title">REGISTROS</p>
+
+            <a href="#" class="nav-item">
+                <i class="fa-solid fa-clock-rotate-left"></i>
+                <span>Historial de accesos</span>
+            </a>
+
+            <a href="#" class="nav-item">
+                <i class="fa-solid fa-chart-column"></i>
+                <span>Reportes básicos</span>
+            </a>
+
+        </nav>
+
+    </aside>
+
+
+    <!-- =========================
+         CONTENIDO
+    ========================== -->
+
+    <main class="main-content">
+
+        <!-- HEADER -->
+
+        <header class="topbar">
+
+            <div class="condominio-info">
+                <div class="condominio-icon">
+                    <i class="fa-solid fa-building"></i>
+                </div>
+
+                <div>
+                    <h3>Condominio Vista Norte</h3>
+                    <span>Control de Accesos y Estacionamientos</span>
+                </div>
+            </div>
+
+            <div class="topbar-right">
+
+                <div class="clock">
+                    <span id="fechaActual">--</span>
+                    <strong id="horaActual">--:--</strong>
+                </div>
+
+                <div class="guardia">
+                    <div class="guardia-avatar">
+                        <i class="fa-solid fa-user"></i>
+                    </div>
+
+                    <div>
+                        <strong>Guardia</strong>
+                        <span>Turno actual</span>
+                    </div>
+                </div>
+
+            </div>
+
+        </header>
+
+
+        <!-- CONTENEDOR -->
+
+        <section class="content">
+
+            <div class="page-header">
+
+                <div>
+                    <h1>
+                        <i class="fa-solid fa-car"></i>
+                        Estacionamientos
+                    </h1>
+
+                    <p>
+                        Visualiza y verifica los estacionamientos del condominio.
+                    </p>
+                </div>
+
+                <div class="global-search">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+
+                    <input
+                        type="text"
+                        placeholder="Buscar patente, estacionamiento o departamento..."
+                    >
+                </div>
+
+            </div>
+
+
+            <!-- PESTAÑAS -->
+
+            <div class="parking-tabs">
+
+                <button class="parking-tab active" data-tab="residentes">
+
+                    <i class="fa-solid fa-house"></i>
+
+                    <div>
+                        <strong>Estacionamientos Residentes</strong>
+                        <span>Asignación y verificación de patentes</span>
+                    </div>
+
+                </button>
+
+
+                <button class="parking-tab" data-tab="visitas">
+
+                    <i class="fa-solid fa-users"></i>
+
+                    <div>
+                        <strong>Estacionamientos Visitas</strong>
+                        <span>Control de ocupación y tiempo</span>
+                    </div>
+
+                </button>
+
+            </div>
+
+
+            <!-- ====================================
+                 RESIDENTES
+            ===================================== -->
+
+            <div class="tab-content active" id="residentes">
+
+                <!-- RESUMEN -->
+
+                <div class="summary-grid">
+
+                    <div class="summary-card">
+
+                        <div class="summary-icon">
+                            <i class="fa-solid fa-square-parking"></i>
+                        </div>
+
+                        <div>
+                            <strong>48</strong>
+                            <span>Total estacionamientos</span>
+                        </div>
+
+                    </div>
+
+
+                    <div class="summary-card">
+
+                        <div class="summary-icon success">
+                            <i class="fa-solid fa-car"></i>
+                        </div>
+
+                        <div>
+                            <strong>36</strong>
+                            <span>Asignados</span>
+                        </div>
+
+                    </div>
+
+
+                    <div class="summary-card">
+
+                        <div class="summary-icon neutral">
+                            <i class="fa-solid fa-car-side"></i>
+                        </div>
+
+                        <div>
+                            <strong>12</strong>
+                            <span>Sin asignar</span>
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- TOOLBAR -->
+
+                <div class="parking-toolbar">
+
+                    <div class="filter-buttons">
+
+                        <button class="filter-btn active" data-filter="all">
+                            Todos
+                            <span id="countAll">150</span>
+                        </button>
+
+                        <button class="filter-btn" data-filter="assigned">
+                            Asignados
+                            <span id="countAssigned">0</span>
+                        </button>
+
+                        <button class="filter-btn" data-filter="unassigned">
+                            Sin asignar
+                            <span id="countUnassigned">150</span>
+                        </button>
+
+                    </div>
+
+
+                    <div class="view-buttons">
+
+                        <button class="view-btn active">
+                            <i class="fa-solid fa-grip"></i>
+                            Vista visual
+                        </button>
+
+                        <button class="view-btn">
+                            <i class="fa-solid fa-list"></i>
+                            Vista listado
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <!-- ZONA PRINCIPAL -->
+
+                <div class="parking-layout">
+
+                    <section class="parking-map">
+
+                        <div class="sector-title">
+                            <div>
+                                <h3>Estacionamientos de residentes</h3>
+                                <p>Estacionamientos 1 al 150</p>
+                            </div>
+                        </div>
+
+
+                        <div class="parking-grid">
+
+                            <!-- Próximo paso:
+                                 aquí crearemos las tarjetas visuales
+                                 de los estacionamientos -->
+
+                        <div class="parking-spaces" id="parkingSpaces">
+                            <!-- Los estacionamientos 1 al 150 se generan con JavaScript -->
+                        </div>
+
+                        </div>
+
+                    </section>
+
+
+                    <!-- PANEL DERECHO -->
+
+                    <aside class="side-panel">
+
+                        <div class="verification-card">
+
+                            <div class="card-title">
+
+                                <i class="fa-solid fa-shield-halved"></i>
+
+                                <div>
+                                    <h3>Verificación rápida</h3>
+                                    <span>Comprueba vehículo y estacionamiento</span>
+                                </div>
+
+                            </div>
+
+
+                            <div class="verification-form">
+
+                                <div class="form-group">
+
+                                    <label>N° Estacionamiento</label>
+
+                                    <input
+                                        type="text"
+                                        id="verificarEstacionamiento"
+                                        placeholder="Ej: E-014"
+                                    >
+
+                                </div>
+
+
+                                <div class="form-group">
+
+                                    <label>Patente observada</label>
+
+                                    <input
+                                        type="text"
+                                        id="verificarPatente"
+                                        placeholder="Ej: ABCD-12"
+                                    >
+
+                                </div>
+
+
+                                <button id="btnVerificar" class="primary-btn">
+
+                                    <i class="fa-solid fa-magnifying-glass"></i>
+
+                                    Verificar patente
+
+                                </button>
+
+                            </div>
+
+
+                            <div class="verification-placeholder">
+
+                                <i class="fa-solid fa-circle-info"></i>
+
+                                <p>
+                                    Ingresa el estacionamiento y la patente
+                                    observada para comprobar si corresponde.
+                                </p>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- DETALLE -->
+
+                        <div class="detail-card">
+
+                            <div class="card-title">
+
+                                <i class="fa-solid fa-car"></i>
+
+                                <div>
+                                    <h3>Detalle del estacionamiento</h3>
+                                    <span>Selecciona un espacio del mapa</span>
+                                </div>
+
+                            </div>
+
+
+                            <div class="detail-empty">
+
+                                <i class="fa-solid fa-arrow-pointer"></i>
+
+                                <p>
+                                    Selecciona un estacionamiento para consultar
+                                    residente y vehículos autorizados.
+                                </p>
+
+                            </div>
+
+                        </div>
+
+                    </aside>
+
+                </div>
+
+            </div>
+
+
+            <!-- ====================================
+                 VISITAS
+            ===================================== -->
+
+            <div class="tab-content" id="visitas">
+
+                <div class="coming-soon">
+
+                    <i class="fa-solid fa-car-side"></i>
+
+                    <h2>Estacionamientos de Visitas</h2>
+
+                    <p>
+                        Aquí implementaremos el control de espacios disponibles,
+                        vehículos, horarios y tiempo de permanencia.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+</div>
+
+<script src="js/app.js"></script>
+
+</body>
+</html>
