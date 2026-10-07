@@ -1,581 +1,823 @@
+/* =========================================================
+   APPNOVA - CONTROL DE CONDOMINIO
+========================================================= */
+
 * {
-    box-sizing: border-box;
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
 }
 
 :root {
     --sidebar: #102238;
-    --sidebar-dark: #0a1728;
+    --sidebar-light: #183653;
 
     --primary: #1769ff;
-    --primary-dark: #0757df;
+    --primary-dark: #0f5ce6;
 
     --background: #f4f7fb;
     --card: #ffffff;
 
-    --text: #14213d;
-    --muted: #718096;
+    --text: #17283b;
+    --text-soft: #6d7c8b;
 
-    --border: #dfe7f1;
+    --border: #dce4ee;
 
-    --success: #16a765;
-    --warning: #f5a623;
-    --danger: #e84b4b;
+    --success: #20ae70;
+    --danger: #d83c47;
+    --warning: #d99816;
 
-    --radius: 14px;
+    --radius: 10px;
+}
+
+html {
+    scroll-behavior: smooth;
 }
 
 body {
-    font-family: Arial, Helvetica, sans-serif;
+    min-height: 100vh;
+
+    font-family:
+        Inter,
+        "Segoe UI",
+        Arial,
+        sans-serif;
+
     background: var(--background);
     color: var(--text);
 }
 
-button,
-input {
-    font-family: inherit;
-}
 
-button {
-    cursor: pointer;
-}
+/* =========================================================
+   LAYOUT
+========================================================= */
 
-.app {
+.app-layout {
     min-height: 100vh;
 }
 
 
-/* =========================
+/* =========================================================
    SIDEBAR
-========================= */
+========================================================= */
 
 .sidebar {
     position: fixed;
-    left: 0;
+
     top: 0;
+    left: 0;
+    bottom: 0;
 
-    width: 245px;
-    height: 100vh;
+    width: 233px;
 
-    padding: 20px 14px;
+    padding: 20px 0;
 
     background:
         linear-gradient(
             180deg,
-            var(--sidebar),
-            var(--sidebar-dark)
+            #10253d,
+            #0b1d31
         );
 
     color: white;
 
     overflow-y: auto;
+
+    z-index: 100;
 }
+
+
+/* LOGO */
 
 .brand {
     display: flex;
     align-items: center;
     gap: 12px;
 
-    padding: 4px 10px 26px;
+    padding: 0 13px 27px;
 }
 
 .brand-icon {
     width: 42px;
     height: 42px;
 
-    display: grid;
-    place-items: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
     border-radius: 12px;
 
     background:
         linear-gradient(
             135deg,
-            #7b46ff,
-            #1677ff
+            #6b4cff,
+            #287cff
         );
 
-    font-size: 20px;
-}
+    color: white;
 
-.brand h2 {
     font-size: 21px;
+    font-weight: 700;
 }
 
-.brand span {
+.brand-text strong {
     display: block;
 
-    margin-top: 2px;
+    font-size: 21px;
+    letter-spacing: .2px;
+}
 
-    font-size: 11px;
+.brand-text span {
+    display: block;
+
+    margin-top: 1px;
+
+    color: #a9c0d8;
+
+    font-size: 9px;
     letter-spacing: 3px;
-
-    color: #9db0c7;
 }
 
-.sidebar-nav {
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
+
+/* MENÚ */
+
+.sidebar-menu {
+    padding: 0 2px;
 }
 
-.nav-title {
-    margin: 20px 10px 8px;
+.menu-label {
+    margin:
+        19px
+        10px
+        10px;
 
-    font-size: 11px;
-    letter-spacing: .8px;
+    color: #85a7ca;
 
-    color: #8399b2;
+    font-size: 10px;
+    letter-spacing: 1px;
 }
 
-.nav-item {
+.menu-item {
     display: flex;
     align-items: center;
-    gap: 13px;
+    gap: 14px;
 
-    padding: 12px 14px;
+    min-height: 41px;
+
+    margin: 2px 0;
+    padding: 0 16px;
 
     border-radius: 9px;
 
-    color: #d9e4ef;
+    color: #ffffff;
     text-decoration: none;
 
     font-size: 14px;
 
-    transition: .2s;
+    transition:
+        background .15s ease,
+        color .15s ease;
 }
 
-.nav-item i {
-    width: 20px;
+.menu-item i {
+    width: 17px;
     text-align: center;
+
+    color: #d9ecff;
 }
 
-.nav-item:hover {
-    background: rgba(255, 255, 255, .07);
+.menu-item:hover {
+    background: rgba(255,255,255,.07);
 }
 
-.nav-item.active {
+.menu-item.active {
+    background: var(--primary);
     color: white;
-
-    background:
-        linear-gradient(
-            90deg,
-            #1267f5,
-            #1769ff
-        );
-
-    box-shadow:
-        0 6px 18px rgba(0, 87, 255, .25);
 }
 
 
-/* =========================
+/* =========================================================
    MAIN
-========================= */
+========================================================= */
 
 .main-content {
     min-height: 100vh;
-    margin-left: 245px;
+
+    margin-left: 233px;
 }
 
 
-/* =========================
+/* =========================================================
    TOPBAR
-========================= */
+========================================================= */
 
 .topbar {
-    height: 76px;
+    min-height: 69px;
 
     display: flex;
     align-items: center;
     justify-content: space-between;
 
-    padding: 0 28px;
+    gap: 20px;
 
-    color: white;
+    padding: 11px 24px;
 
-    background:
-        linear-gradient(
-            90deg,
-            #183047,
-            #102238
-        );
+    background: white;
 
-    box-shadow: 0 3px 15px rgba(0, 0, 0, .08);
+    border-bottom: 1px solid var(--border);
+
+    position: sticky;
+    top: 0;
+
+    z-index: 50;
 }
 
-.condominio-info {
-    display: flex;
-    align-items: center;
-    gap: 13px;
-}
-
-.condominio-icon {
-    width: 43px;
-    height: 43px;
-
-    display: grid;
-    place-items: center;
-
-    border-radius: 10px;
-
-    background: rgba(255, 255, 255, .1);
-
-    font-size: 20px;
-}
-
-.condominio-info h3 {
-    font-size: 17px;
-}
-
-.condominio-info span {
+.topbar-condo strong {
     display: block;
 
-    margin-top: 4px;
+    font-size: 15px;
+}
+
+.topbar-condo span {
+    display: block;
+
+    margin-top: 3px;
+
+    color: var(--text-soft);
+
+    font-size: 10px;
+}
+
+.topbar-user {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.clock-box {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+
+    color: #53677b;
 
     font-size: 12px;
-
-    color: #b8c6d6;
 }
 
-.topbar-right {
+.user-info {
     display: flex;
     align-items: center;
-    gap: 30px;
+    gap: 9px;
 }
 
-.clock {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-}
+.user-avatar {
+    width: 34px;
+    height: 34px;
 
-.clock span {
-    font-size: 11px;
-    color: #bdcada;
-}
-
-.clock strong {
-    margin-top: 2px;
-    font-size: 22px;
-}
-
-.guardia {
     display: flex;
     align-items: center;
-    gap: 10px;
-
-    padding-left: 22px;
-
-    border-left: 1px solid rgba(255,255,255,.15);
-}
-
-.guardia-avatar {
-    width: 38px;
-    height: 38px;
-
-    display: grid;
-    place-items: center;
+    justify-content: center;
 
     border-radius: 50%;
 
-    background: white;
-    color: #168160;
+    color: var(--primary);
+    background: #edf4ff;
 }
 
-.guardia strong,
-.guardia span {
+.user-info strong {
+    display: block;
+
+    font-size: 11px;
+}
+
+.user-info span {
+    display: block;
+
+    margin-top: 2px;
+
+    color: var(--text-soft);
+
+    font-size: 9px;
+}
+
+
+/* =========================================================
+   CONTENIDO / SECCIONES
+========================================================= */
+
+.page-container {
+    padding: 22px 24px 35px;
+}
+
+.app-section {
+    display: none;
+}
+
+.app-section.active {
     display: block;
 }
 
-.guardia strong {
-    font-size: 13px;
-}
 
-.guardia span {
-    margin-top: 3px;
-
-    font-size: 11px;
-
-    color: #b8c6d6;
-}
-
-
-/* =========================
-   CONTENT
-========================= */
-
-.content {
-    padding: 24px;
-}
+/* =========================================================
+   ENCABEZADOS
+========================================================= */
 
 .page-header {
     display: flex;
-    justify-content: space-between;
     align-items: center;
+    justify-content: space-between;
+
+    gap: 20px;
 
     margin-bottom: 20px;
 }
 
 .page-header h1 {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-
-    font-size: 27px;
-}
-
-.page-header h1 i {
-    color: var(--primary);
+    font-size: 24px;
 }
 
 .page-header p {
     margin-top: 5px;
 
-    font-size: 13px;
+    color: var(--text-soft);
 
-    color: var(--muted);
+    font-size: 11px;
 }
 
 .global-search {
-    width: 390px;
+    width: 300px;
 
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 9px;
 
-    padding: 0 14px;
-
-    border: 1px solid var(--border);
-    border-radius: 9px;
+    padding: 0 12px;
 
     background: white;
+
+    border: 1px solid var(--border);
+    border-radius: 8px;
 }
 
 .global-search i {
-    color: #64748b;
+    color: #8493a2;
 }
 
 .global-search input {
     width: 100%;
 
-    padding: 12px 0;
+    padding: 10px 0;
 
-    border: none;
+    border: 0;
     outline: none;
 
-    color: var(--text);
-}
-
-
-/* =========================
-   TABS
-========================= */
-
-.parking-tabs {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-
-    margin-bottom: 18px;
-
-    border: 1px solid var(--border);
-    border-radius: 12px 12px 0 0;
-
-    overflow: hidden;
-
-    background: #edf2f8;
-}
-
-.parking-tab {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 14px;
-
-    padding: 17px;
-
-    border: none;
-
-    color: #34435a;
     background: transparent;
-}
-
-.parking-tab i {
-    font-size: 23px;
-}
-
-.parking-tab strong,
-.parking-tab span {
-    display: block;
-    text-align: left;
-}
-
-.parking-tab strong {
-    font-size: 14px;
-}
-
-.parking-tab span {
-    margin-top: 3px;
 
     font-size: 11px;
-
-    color: var(--muted);
-}
-
-.parking-tab.active {
-    color: var(--primary);
-
-    background: white;
-
-    box-shadow:
-        inset 0 3px 0 var(--primary);
 }
 
 
-/* =========================
-   TAB CONTENT
-========================= */
+/* =========================================================
+   BOTONES GENERALES
+========================================================= */
 
-.tab-content {
-    display: none;
+button,
+input,
+select {
+    font: inherit;
 }
 
-.tab-content.active {
-    display: block;
+.primary-action {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    padding: 11px 17px;
+
+    border: 0;
+    border-radius: 8px;
+
+    background: var(--primary);
+    color: white;
+
+    font-size: 12px;
+    font-weight: 600;
+
+    cursor: pointer;
+}
+
+.primary-action:hover {
+    background: var(--primary-dark);
 }
 
 
-/* =========================
-   SUMMARY
-========================= */
+/* =========================================================
+   RESIDENTES
+========================================================= */
 
-.summary-grid {
+.residents-header {
+    align-items: flex-start;
+}
+
+.resident-summary {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 12px;
 
-    margin-bottom: 14px;
+    grid-template-columns:
+        repeat(3, minmax(180px, 1fr));
+
+    gap: 14px;
+
+    margin-bottom: 18px;
 }
 
 .summary-card {
     display: flex;
     align-items: center;
-    gap: 14px;
+    gap: 13px;
 
-    padding: 16px;
+    padding: 17px;
+
+    background: white;
 
     border: 1px solid var(--border);
-    border-radius: 12px;
-
-    background: var(--card);
+    border-radius: var(--radius);
 }
 
 .summary-icon {
-    width: 45px;
-    height: 45px;
+    flex: 0 0 auto;
 
-    display: grid;
-    place-items: center;
+    width: 43px;
+    height: 43px;
 
-    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
-    background: #edf2f7;
-    color: #475569;
+    border-radius: 9px;
 
-    font-size: 19px;
+    color: var(--primary);
+    background: #edf4ff;
 }
 
-.summary-icon.success {
-    color: var(--success);
-    background: #dcf9e9;
-}
-
-.summary-icon.neutral {
-    color: #68788c;
-}
-
-.summary-card strong,
 .summary-card span {
     display: block;
+
+    color: var(--text-soft);
+
+    font-size: 10px;
 }
 
 .summary-card strong {
-    font-size: 23px;
+    display: block;
+
+    margin-top: 3px;
+
+    font-size: 21px;
 }
 
-.summary-card span {
-    margin-top: 2px;
+
+/* BUSCADOR RESIDENTES */
+
+.residents-toolbar {
+    display: flex;
+    gap: 12px;
+
+    margin-bottom: 14px;
+}
+
+.resident-search {
+    flex: 1;
+
+    display: flex;
+    align-items: center;
+    gap: 9px;
+
+    padding: 0 13px;
+
+    background: white;
+
+    border: 1px solid var(--border);
+    border-radius: 8px;
+}
+
+.resident-search i {
+    color: #8493a2;
+}
+
+.resident-search input {
+    width: 100%;
+
+    padding: 11px 0;
+
+    border: 0;
+    outline: none;
+
+    background: transparent;
 
     font-size: 11px;
+}
 
-    color: var(--muted);
+.residents-toolbar select {
+    min-width: 175px;
+
+    padding: 0 12px;
+
+    border: 1px solid var(--border);
+    border-radius: 8px;
+
+    outline: none;
+
+    background: white;
+
+    font-size: 11px;
 }
 
 
-/* =========================
-   TOOLBAR
-========================= */
+/* TABLA RESIDENTES */
+
+.residents-card {
+    overflow: hidden;
+
+    background: white;
+
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+}
+
+.residents-table-header,
+.resident-row {
+    display: grid;
+
+    grid-template-columns:
+        110px
+        minmax(180px, 1.4fr)
+        120px
+        100px
+        minmax(170px, 1fr)
+        65px;
+
+    align-items: center;
+
+    gap: 12px;
+
+    padding: 13px 16px;
+}
+
+.residents-table-header {
+    background: #f5f8fc;
+
+    color: #718096;
+
+    font-size: 9px;
+    font-weight: 700;
+
+    text-transform: uppercase;
+}
+
+.resident-row {
+    min-height: 65px;
+
+    border-top: 1px solid #edf1f5;
+
+    font-size: 11px;
+}
+
+.resident-row:hover {
+    background: #f8fbff;
+}
+
+.resident-depto {
+    font-size: 15px;
+    font-weight: 700;
+}
+
+.resident-name strong {
+    display: block;
+
+    font-size: 12px;
+}
+
+.resident-name small {
+    display: block;
+
+    margin-top: 3px;
+
+    color: var(--text-soft);
+
+    font-size: 10px;
+}
+
+.resident-type {
+    display: inline-flex;
+
+    padding: 5px 8px;
+
+    border-radius: 20px;
+
+    color: var(--primary);
+    background: #edf4ff;
+
+    font-size: 9px;
+    font-weight: 700;
+}
+
+.resident-parkings {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+}
+
+.parking-chip {
+    padding: 4px 7px;
+
+    border-radius: 5px;
+
+    color: #087649;
+    background: #e9f8f1;
+
+    font-size: 9px;
+    font-weight: 700;
+}
+
+.parking-chip.rented {
+    color: #8a5b00;
+    background: #fff4d8;
+}
+
+.edit-resident {
+    width: 32px;
+    height: 32px;
+
+    border: 1px solid #d7e0ea;
+    border-radius: 7px;
+
+    color: #526273;
+    background: white;
+
+    cursor: pointer;
+}
+
+.edit-resident:hover {
+    color: var(--primary);
+    border-color: var(--primary);
+}
+
+
+/* =========================================================
+   TABS ESTACIONAMIENTOS
+========================================================= */
+
+.parking-tabs {
+    display: flex;
+    gap: 4px;
+
+    margin-bottom: 17px;
+
+    padding: 4px;
+
+    width: fit-content;
+
+    background: #e9eef5;
+
+    border-radius: 8px;
+}
+
+.parking-tab {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+
+    padding: 9px 14px;
+
+    border: 0;
+    border-radius: 6px;
+
+    color: #5b6b7b;
+    background: transparent;
+
+    font-size: 11px;
+    font-weight: 600;
+
+    cursor: pointer;
+}
+
+.parking-tab.active {
+    color: var(--primary);
+    background: white;
+
+    box-shadow: 0 2px 5px rgba(20,40,65,.08);
+}
+
+.parking-tab-content {
+    display: none;
+}
+
+.parking-tab-content.active {
+    display: block;
+}
+
+
+/* =========================================================
+   RESUMEN ESTACIONAMIENTOS
+========================================================= */
+
+.parking-summary {
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, minmax(150px, 1fr));
+
+    gap: 12px;
+
+    margin-bottom: 15px;
+}
+
+.parking-summary-card {
+    padding: 14px 16px;
+
+    background: white;
+
+    border: 1px solid var(--border);
+    border-radius: 9px;
+}
+
+.parking-summary-card span {
+    display: block;
+
+    color: var(--text-soft);
+
+    font-size: 9px;
+}
+
+.parking-summary-card strong {
+    display: block;
+
+    margin-top: 4px;
+
+    font-size: 20px;
+}
+
+.parking-summary-card.success strong {
+    color: var(--success);
+}
+
+.parking-summary-card.neutral strong {
+    color: #667580;
+}
+
+
+/* =========================================================
+   TOOLBAR ESTACIONAMIENTOS
+========================================================= */
 
 .parking-toolbar {
     display: flex;
     align-items: center;
     justify-content: space-between;
 
+    gap: 15px;
+
     margin-bottom: 12px;
-
-    padding: 10px;
-
-    border: 1px solid var(--border);
-    border-radius: 10px;
-
-    background: white;
 }
 
 .filter-buttons,
 .view-buttons {
     display: flex;
-    gap: 7px;
+    gap: 6px;
 }
 
 .filter-btn,
 .view-btn {
-    padding: 9px 14px;
+    padding: 7px 10px;
 
-    border: 1px solid var(--border);
-    border-radius: 7px;
+    border: 1px solid #d8e1eb;
+    border-radius: 6px;
 
-    background: #f5f8fc;
+    color: #536475;
+    background: white;
 
-    color: #40516a;
+    font-size: 10px;
 
-    font-size: 12px;
+    cursor: pointer;
 }
 
 .filter-btn span {
     margin-left: 4px;
+
+    color: #8493a2;
 }
 
-.filter-btn.active {
-    border-color: var(--primary);
-
-    color: white;
-
-    background: var(--primary);
-}
-
+.filter-btn.active,
 .view-btn.active {
-    border-color: #b8d1ff;
-
     color: var(--primary);
-
+    border-color: #a9c7ff;
     background: #edf4ff;
 }
 
 
-/* =========================
-   PARKING LAYOUT
-========================= */
+/* =========================================================
+   MAPA + PANEL DERECHO
+========================================================= */
 
 .parking-layout {
     display: grid;
@@ -584,375 +826,93 @@ button {
         minmax(0, 1fr)
         360px;
 
-    gap: 14px;
-}
+    gap: 15px;
 
-.parking-map,
-.verification-card,
-.detail-card {
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-
-    background: white;
+    align-items: start;
 }
 
 .parking-map {
-    min-height: 520px;
-}
+    min-width: 0;
 
-.section-title {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-
-    padding: 14px 16px;
-
-    border-bottom: 1px solid var(--border);
-}
-
-.section-title div {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-}
-
-.section-title span {
-    font-size: 11px;
-
-    color: var(--muted);
-}
-
-.parking-grid {
-    padding: 14px;
-}
-
-.empty-preview {
-    min-height: 420px;
-
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-
-    text-align: center;
-
-    color: var(--muted);
-
-    border: 2px dashed #dce5ef;
-    border-radius: 12px;
-
-    background: #fafcff;
-}
-
-.empty-preview i {
-    margin-bottom: 13px;
-
-    font-size: 48px;
-
-    color: #b8c8da;
-}
-
-.empty-preview h3 {
-    margin-bottom: 7px;
-
-    color: #415269;
-}
-
-.empty-preview p {
-    max-width: 340px;
-
-    font-size: 13px;
-    line-height: 1.5;
-}
-
-
-/* =========================
-   SIDE PANEL
-========================= */
-
-.side-panel {
-    display: flex;
-    flex-direction: column;
-    gap: 14px;
-}
-
-.verification-card,
-.detail-card {
-    padding: 16px;
-}
-
-.card-title {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-
-    margin-bottom: 15px;
-}
-
-.card-title > i {
-    width: 37px;
-    height: 37px;
-
-    display: grid;
-    place-items: center;
-
-    border-radius: 9px;
-
-    color: var(--primary);
-
-    background: #edf4ff;
-}
-
-.card-title h3 {
-    font-size: 15px;
-}
-
-.card-title span {
-    display: block;
-
-    margin-top: 3px;
-
-    font-size: 10px;
-
-    color: var(--muted);
-}
-
-.verification-form {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 9px;
-}
-
-.form-group label {
-    display: block;
-
-    margin-bottom: 5px;
-
-    font-size: 11px;
-
-    color: #44546a;
-}
-
-.form-group input {
-    width: 100%;
-
-    padding: 10px;
-
-    border: 1px solid var(--border);
-    border-radius: 7px;
-
-    outline: none;
-}
-
-.form-group input:focus {
-    border-color: var(--primary);
-}
-
-.primary-btn {
-    grid-column: 1 / -1;
-
-    padding: 11px;
-
-    border: none;
-    border-radius: 7px;
-
-    color: white;
-
-    background:
-        linear-gradient(
-            90deg,
-            var(--primary),
-            var(--primary-dark)
-        );
-}
-
-.verification-placeholder {
-    display: flex;
-    gap: 9px;
-
-    margin-top: 13px;
-    padding: 12px;
-
-    border-radius: 8px;
-
-    color: #55708f;
-    background: #f0f6ff;
-
-    font-size: 11px;
-    line-height: 1.4;
-}
-
-.detail-empty {
-    min-height: 130px;
-
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-
-    padding: 15px;
-
-    text-align: center;
-
-    color: var(--muted);
-}
-
-.detail-empty i {
-    margin-bottom: 10px;
-
-    font-size: 25px;
-
-    color: #aab9ca;
-}
-
-.detail-empty p {
-    max-width: 260px;
-
-    font-size: 11px;
-    line-height: 1.5;
-}
-
-
-/* =========================
-   VISITAS
-========================= */
-
-.coming-soon {
-    min-height: 500px;
-
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-
-    border: 1px solid var(--border);
-    border-radius: 14px;
-
-    text-align: center;
+    padding: 13px;
 
     background: white;
+
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
 }
 
-.coming-soon i {
-    margin-bottom: 15px;
-
-    font-size: 50px;
-
-    color: var(--primary);
+.sector-title {
+    margin-bottom: 11px;
 }
 
-.coming-soon h2 {
-    margin-bottom: 7px;
+.sector-title h3 {
+    font-size: 14px;
 }
 
-.coming-soon p {
-    max-width: 480px;
+.sector-title p {
+    margin-top: 3px;
 
-    color: var(--muted);
+    color: var(--text-soft);
 
-    font-size: 13px;
-    line-height: 1.5;
+    font-size: 10px;
 }
 
 
-/* =========================
-   RESPONSIVE
-========================= */
-
-@media (max-width: 1100px) {
-
-    .parking-layout {
-        grid-template-columns: 1fr;
-    }
-
-    .side-panel {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-    }
-
-}
-
-@media (max-width: 850px) {
-
-    .sidebar {
-        width: 70px;
-    }
-
-    .brand div:not(.brand-icon),
-    .nav-item span,
-    .nav-title {
-        display: none;
-    }
-
-    .nav-item {
-        justify-content: center;
-    }
-
-    .main-content {
-        margin-left: 70px;
-    }
-
-    .global-search {
-        width: 280px;
-    }
-
-}
-
-/* =========================================
-   MAPA VISUAL DE ESTACIONAMIENTOS
-========================================= */
+/* =========================================================
+   GRID ESTACIONAMIENTOS
+========================================================= */
 
 .parking-spaces {
     display: grid;
+
     grid-template-columns:
-        repeat(auto-fill, minmax(115px, 1fr));
+        repeat(auto-fill, minmax(112px, 1fr));
 
-    gap: 9px;
+    gap: 8px;
 }
-
-
-/* TARJETA */
 
 .parking-space {
     overflow: hidden;
 
-    border: 1px solid #d4dde7;
+    min-width: 0;
+
+    border: 1px solid #ccd6df;
     border-radius: 9px;
 
-    background: #ffffff;
+    background: white;
 
     cursor: pointer;
 
     box-shadow:
-        0 3px 8px rgba(20, 40, 65, .08);
+        0 3px 7px rgba(20,40,65,.09);
 
     transition:
-        transform .18s ease,
-        box-shadow .18s ease,
-        border-color .18s ease;
+        transform .15s ease,
+        border-color .15s ease,
+        box-shadow .15s ease;
 }
 
 .parking-space:hover {
-    transform: translateY(-3px);
+    transform: translateY(-2px);
 
-    border-color: #84adf5;
+    border-color: #78a8ff;
 
     box-shadow:
-        0 9px 20px rgba(20, 45, 75, .16);
+        0 7px 14px rgba(20,40,65,.15);
 }
 
 .parking-space.selected {
     border-color: var(--primary);
 
     box-shadow:
-        0 0 0 3px rgba(23, 105, 255, .13),
-        0 8px 20px rgba(20, 45, 75, .15);
+        0 0 0 3px rgba(23,105,255,.16);
 }
 
 
-/* =========================================
-   ESCENA / ASFALTO
-========================================= */
+/* =========================================================
+   ASFALTO
+========================================================= */
 
 .parking-scene {
     position: relative;
@@ -967,29 +927,22 @@ button {
 
     color: white;
 
-    /*
-       Varias capas para evitar un gris plano.
-       Queremos sensación de pavimento.
-    */
-
     background:
         radial-gradient(
-            circle at 18% 22%,
+            circle at 20% 25%,
             rgba(255,255,255,.08) 0 1px,
             transparent 2px
         ),
-
         radial-gradient(
-            circle at 70% 65%,
+            circle at 70% 60%,
             rgba(0,0,0,.12) 0 1px,
             transparent 2px
         ),
-
         linear-gradient(
             145deg,
-            #667077 0%,
-            #4f595f 45%,
-            #626c72 100%
+            #687278,
+            #4f595f 48%,
+            #616c72
         );
 
     background-size:
@@ -998,14 +951,8 @@ button {
         100% 100%;
 
     box-shadow:
-        inset 0 0 28px rgba(0,0,0,.23);
+        inset 0 0 27px rgba(0,0,0,.23);
 }
-
-
-/*
-Sombras suaves para conseguir un aspecto
-más parecido al mockup.
-*/
 
 .parking-scene::after {
     content: "";
@@ -1018,53 +965,47 @@ más parecido al mockup.
     background:
         linear-gradient(
             90deg,
-            rgba(0,0,0,.18),
+            rgba(0,0,0,.15),
             transparent 25%,
             transparent 75%,
-            rgba(0,0,0,.18)
+            rgba(0,0,0,.15)
         );
 }
 
-
-/* NÚMERO */
-
 .parking-number {
     position: relative;
-    z-index: 4;
+    z-index: 5;
 
-    margin-top: 8px;
+    margin-top: 7px;
 
-    font-size: 11px;
-    font-weight: 600;
+    color: white;
 
-    color: rgba(255,255,255,.95);
+    font-size: 10px;
+    font-weight: 700;
 }
 
 
-/* =========================================
-   ESPACIO DEL AUTO
-========================================= */
+/* =========================================================
+   ESPACIO ESTACIONAMIENTO
+========================================================= */
 
 .parking-bay {
     position: relative;
-    z-index: 2;
+    z-index: 3;
 
     width: 88%;
-    height: 112px;;
+    height: 112px;
 
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-
-/* LÍNEAS AMARILLAS */
-
 .parking-line {
     position: absolute;
 
-    top: 8px;
-    bottom: 5px;
+    top: 7px;
+    bottom: 3px;
 
     width: 3px;
 
@@ -1074,193 +1015,144 @@ más parecido al mockup.
         linear-gradient(
             180deg,
             #ffc928,
-            #e7a900
+            #e5a800
         );
 
     box-shadow:
-        0 0 5px rgba(255, 190, 0, .22);
+        0 0 4px rgba(255,190,0,.25);
 }
 
 .parking-line.left {
-    left: 5px;
+    left: 4px;
 }
 
 .parking-line.right {
-    right: 5px;
+    right: 4px;
 }
 
 
-/* =========================================
-   AUTO TEMPORAL VISTO DESDE ARRIBA
-========================================= */
+/* =========================================================
+   AUTO PLACEHOLDER
+========================================================= */
 
 .demo-car {
     position: relative;
 
-    width: 53px;
-    height: 98px;
-
-    border-radius:
-        21px 21px
-        17px 17px;
-
-    border: 2px solid rgba(15,20,25,.65);
-
-    box-shadow:
-        0 7px 10px rgba(0,0,0,.38);
+    width: 46px;
+    height: 91px;
 
     z-index: 4;
+
+    border: 2px solid rgba(10,15,18,.65);
+
+    border-radius:
+        19px 19px
+        15px 15px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #171c1f,
+            #535d62 45%,
+            #353c40 62%,
+            #111517
+        );
+
+    box-shadow:
+        0 6px 9px rgba(0,0,0,.42);
 }
-
-
-/* capó */
 
 .demo-car::before {
     content: "";
 
     position: absolute;
 
-    left: 7px;
-    right: 7px;
+    left: 6px;
+    right: 6px;
     top: 5px;
 
-    height: 22px;
+    height: 19px;
 
-    border-radius:
-        13px 13px
-        7px 7px;
+    border-radius: 11px 11px 5px 5px;
+
+    background: rgba(255,255,255,.1);
 
     border-top:
-        1px solid rgba(255,255,255,.65);
-
-    background:
-        rgba(255,255,255,.12);
+        1px solid rgba(255,255,255,.45);
 }
-
-
-/* maletero */
 
 .demo-car::after {
     content: "";
 
     position: absolute;
 
-    left: 8px;
-    right: 8px;
+    left: 7px;
+    right: 7px;
     bottom: 5px;
 
-    height: 18px;
+    height: 16px;
 
-    border-radius:
-        5px 5px
-        10px 10px;
+    border-radius: 4px 4px 9px 9px;
+
+    background: rgba(0,0,0,.08);
 
     border-bottom:
-        1px solid rgba(255,255,255,.45);
-
-    background:
-        rgba(0,0,0,.08);
+        1px solid rgba(255,255,255,.3);
 }
-
-
-/* PARABRISAS */
 
 .car-window {
     position: absolute;
 
-    left: 7px;
-    right: 7px;
+    left: 6px;
+    right: 6px;
 
-    height: 20px;
+    height: 18px;
 
     background:
         linear-gradient(
             145deg,
-            #c7dbe1,
-            #42565f
+            #d3e2e6,
+            #43575f
         );
 
     border:
-        1px solid rgba(15,25,30,.65);
-
-    box-shadow:
-        inset 0 0 6px rgba(255,255,255,.25);
+        1px solid rgba(15,25,30,.7);
 }
 
 .car-window.front {
-    top: 28px;
+    top: 26px;
 
-    border-radius:
-        9px 9px
-        3px 3px;
+    border-radius: 8px 8px 3px 3px;
 }
 
 .car-window.rear {
-    bottom: 26px;
+    bottom: 24px;
 
-    border-radius:
-        3px 3px
-        8px 8px;
-}
-
-
-/* COLORES */
-
-.car-white {
-    background:
-        linear-gradient(
-            90deg,
-            #b8bdc0,
-            #f3f4f4 40%,
-            #ffffff 55%,
-            #a8afb3
-        );
-}
-
-.car-blue {
-    background:
-        linear-gradient(
-            90deg,
-            #064ca2,
-            #1683ef 45%,
-            #0971da 60%,
-            #063f88
-        );
-}
-
-.car-red {
-    background:
-        linear-gradient(
-            90deg,
-            #8f1917,
-            #ef382f 45%,
-            #d92520 60%,
-            #771310
-        );
+    border-radius: 3px 3px 7px 7px;
 }
 
 .car-dark {
     background:
         linear-gradient(
             90deg,
-            #181d20,
-            #525b60 45%,
-            #343b3f 60%,
-            #141719
+            #15191c,
+            #50595e 45%,
+            #32383c 62%,
+            #111416
         );
 }
 
 
-/* =========================================
+/* =========================================================
    ESTACIONAMIENTO VACÍO
-========================================= */
+========================================================= */
 
 .empty-parking-outline {
-    width: 53px;
-    height: 92px;
+    width: 49px;
+    height: 87px;
 
     border:
-        1px dashed rgba(255,255,255,.38);
+        1px dashed rgba(255,255,255,.36);
 
     border-radius: 4px;
 
@@ -1269,238 +1161,1365 @@ más parecido al mockup.
 }
 
 
-/* =========================================
-   PATENTE / DEPARTAMENTO
-========================================= */
+/* =========================================================
+   INFORMACIÓN EN TARJETA
+========================================================= */
 
 .scene-plate {
     position: relative;
     z-index: 4;
 
-    margin-top: -3px;
+    margin-top: -2px;
 
-    font-size: 12px;
+    max-width: 95%;
 
-    text-shadow:
-        0 1px 2px rgba(0,0,0,.45);
-}
+    overflow: hidden;
 
-.scene-depto {
-    position: relative;
-    z-index: 4;
-
-    margin-top: 3px;
+    color: white;
 
     font-size: 10px;
 
-    color: rgba(255,255,255,.86);
+    text-overflow: ellipsis;
+    white-space: nowrap;
+
+    text-shadow:
+        0 1px 2px rgba(0,0,0,.5);
 }
 
+.scene-depto,
 .scene-available {
     position: relative;
     z-index: 4;
 
-    margin-top: 3px;
+    margin-top: 2px;
 
-    font-size: 10px;
+    color: rgba(255,255,255,.9);
 
-    color: rgba(255,255,255,.85);
+    font-size: 9px;
 }
 
-
-/* =========================================
-   BARRA DE ESTADO
-========================================= */
-
 .parking-status-bar {
-    height: 27px;
+    min-height: 27px;
 
     display: flex;
     align-items: center;
     justify-content: center;
 
+    padding: 4px;
+
     color: white;
 
-    font-size: 9px;
-    font-weight: 700;
+    font-size: 8px;
+    font-weight: 800;
 
-    letter-spacing: .2px;
+    text-align: center;
 }
 
-.parking-status-bar.assigned-status {
+.assigned-status {
     background:
         linear-gradient(
             180deg,
-            #43c884,
-            #25a766
+            #42c886,
+            #20aa69
         );
 }
 
-.parking-status-bar.unassigned-status {
+.unassigned-status {
     background:
         linear-gradient(
             180deg,
-            #858f95,
-            #667177
+            #849097,
+            #66727a
         );
 }
 
 
-/* =========================================
-   RESPONSIVE
-========================================= */
+/* =========================================================
+   PANEL DERECHO
+========================================================= */
 
-@media (max-width: 1300px) {
-
-    .parking-spaces {
-        grid-template-columns:
-            repeat(2, minmax(145px, 1fr));
-    }
-
-}
-
-@media (max-width: 750px) {
-
-    .parking-spaces {
-        grid-template-columns: 1fr;
-    }
-
-}
-/* =========================
-   DETALLE ESTACIONAMIENTO
-========================= */
-
-.parking-detail-data {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-
-    gap: 8px;
-
-    margin-bottom: 15px;
-}
-
-.parking-detail-data div {
-    padding: 10px;
-
-    border-radius: 8px;
-
-    background: #f5f8fc;
-}
-
-.parking-detail-data span,
-.detail-label {
-    display: block;
-
-    margin-bottom: 4px;
-
-    font-size: 10px;
-
-    color: var(--muted);
-}
-
-.parking-detail-data strong {
-    font-size: 13px;
-}
-
-.authorized-vehicles {
-    margin-top: 10px;
-}
-
-.authorized-plate {
+.parking-side-panel {
     display: flex;
-    align-items: center;
-    gap: 8px;
+    flex-direction: column;
+    gap: 14px;
 
-    margin-top: 7px;
-    padding: 9px;
+    position: sticky;
 
-    border: 1px solid #dce5ef;
-    border-radius: 8px;
+    top: 87px;
+}
+
+.verification-card,
+.detail-card {
+    padding: 16px;
 
     background: white;
+
+    border: 1px solid var(--border);
+    border-radius: 12px;
 }
 
-.authorized-plate > i {
-    color: #50677f;
+.side-card-title {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+
+    margin-bottom: 14px;
 }
 
-.authorized-plate strong {
-    flex: 1;
+.side-card-icon {
+    flex: 0 0 auto;
 
-    font-size: 12px;
+    width: 38px;
+    height: 38px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 9px;
+
+    color: var(--primary);
+    background: #edf4ff;
 }
 
-.authorized-plate span {
-    color: var(--success);
+.side-card-title h3 {
+    font-size: 14px;
+}
+
+.side-card-title p {
+    margin-top: 3px;
+
+    color: var(--text-soft);
 
     font-size: 9px;
 }
 
-/* =========================
-   RESULTADO VERIFICACIÓN
-========================= */
 
-.verification-result {
-    display: flex;
-    gap: 11px;
+/* =========================================================
+   VERIFICACIÓN
+========================================================= */
 
-    margin-top: 14px;
-    padding: 13px;
+.verification-fields {
+    display: grid;
 
-    border: 1px solid;
-    border-radius: 9px;
+    grid-template-columns:
+        1fr 1fr;
 
-    font-size: 11px;
+    gap: 9px;
 }
 
-.verification-result > i {
-    margin-top: 2px;
-    font-size: 19px;
-}
-
-.verification-result strong {
+.field-group label {
     display: block;
 
     margin-bottom: 5px;
 
-    font-size: 12px;
+    color: #4f6070;
+
+    font-size: 9px;
+}
+
+.field-group input {
+    width: 100%;
+
+    padding: 10px;
+
+    border: 1px solid #d7e0e9;
+    border-radius: 7px;
+
+    outline: none;
+
+    font-size: 11px;
+}
+
+.field-group input:focus {
+    border-color: var(--primary);
+
+    box-shadow:
+        0 0 0 3px rgba(23,105,255,.1);
+}
+
+.verify-button {
+    width: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+
+    margin-top: 10px;
+
+    padding: 10px;
+
+    border: 0;
+    border-radius: 7px;
+
+    color: white;
+    background: var(--primary);
+
+    font-size: 11px;
+    font-weight: 600;
+
+    cursor: pointer;
+}
+
+.verify-button:hover {
+    background: var(--primary-dark);
+}
+
+.verification-help {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+
+    margin-top: 12px;
+    padding: 11px;
+
+    border-radius: 8px;
+
+    color: #42638b;
+    background: #eff5fe;
+
+    font-size: 9px;
+    line-height: 1.5;
+}
+
+
+/* RESULTADOS */
+
+.verification-result {
+    display: flex;
+    gap: 10px;
+
+    margin-top: 13px;
+    padding: 12px;
+
+    border: 1px solid;
+    border-radius: 8px;
+
+    font-size: 10px;
+}
+
+.verification-result > i {
+    margin-top: 2px;
+
+    font-size: 18px;
+}
+
+.verification-result strong {
+    font-weight: 700;
+}
+
+.verification-result > div > strong:first-child {
+    display: block;
+
+    margin-bottom: 6px;
+
+    font-size: 11px;
 
     text-transform: uppercase;
 }
 
 .verification-result p {
-    line-height: 1.6;
+    line-height: 1.65;
 }
-
-
-/* CORRECTO */
 
 .verification-result.success {
     color: #087649;
-
-    border-color: #bcebd3;
-
-    background: #edfbf4;
+    border-color: #afe4ca;
+    background: #ecfaf3;
 }
-
-
-/* ERROR */
 
 .verification-result.danger {
-    color: #b4232c;
+    color: #af2730;
+    border-color: #efbcc1;
+    background: #fff0f1;
+}
 
-    border-color: #f1c1c5;
-
-    background: #fff1f2;
+.verification-result.warning {
+    color: #8c6000;
+    border-color: #efd69a;
+    background: #fff8e6;
 }
 
 
-/* ADVERTENCIA */
+/* =========================================================
+   DETALLE ESTACIONAMIENTO
+========================================================= */
 
-.verification-result.warning {
-    color: #976500;
+.detail-card h3 {
+    margin-bottom: 12px;
 
-    border-color: #f0daa2;
+    font-size: 15px;
+}
+
+.detail-placeholder,
+.detail-empty {
+    padding: 25px 10px;
+
+    color: #81909e;
+
+    text-align: center;
+}
+
+.detail-placeholder i {
+    margin-bottom: 8px;
+
+    color: #b3c0cb;
+
+    font-size: 28px;
+}
+
+.detail-placeholder p,
+.detail-empty p {
+    margin-top: 5px;
+
+    font-size: 10px;
+    line-height: 1.5;
+}
+
+.detail-parking-number {
+    width: 48px;
+    height: 48px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    margin-bottom: 13px;
+
+    border-radius: 9px;
+
+    color: var(--primary);
+    background: #edf4ff;
+
+    font-size: 19px;
+    font-weight: 800;
+}
+
+.detail-row {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+
+    gap: 12px;
+
+    padding: 8px 0;
+
+    border-bottom: 1px solid #edf1f5;
+
+    font-size: 10px;
+}
+
+.detail-row span {
+    color: var(--text-soft);
+}
+
+.detail-row strong {
+    text-align: right;
+}
+
+.detail-vehicles {
+    margin-top: 13px;
+}
+
+.detail-label {
+    display: block;
+
+    margin-bottom: 7px;
+
+    color: var(--text-soft);
+
+    font-size: 9px;
+    font-weight: 700;
+
+    text-transform: uppercase;
+}
+
+.detail-vehicle {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+
+    margin-bottom: 6px;
+    padding: 8px 9px;
+
+    border-radius: 7px;
+
+    background: #f4f7fb;
+}
+
+.detail-vehicle strong {
+    font-size: 11px;
+}
+
+.detail-vehicle span,
+.detail-vehicle small {
+    color: var(--text-soft);
+
+    font-size: 9px;
+}
+
+.detail-observation {
+    margin-top: 12px;
+    padding: 10px;
+
+    border-radius: 7px;
+
+    color: #73550c;
+    background: #fff7df;
+
+    font-size: 9px;
+}
+
+.detail-observation strong {
+    display: block;
+
+    margin-bottom: 4px;
+}
+
+.detail-observation p {
+    line-height: 1.5;
+}
+
+.detail-muted {
+    color: #8a97a4;
+
+    font-size: 10px;
+}
+
+
+/* =========================================================
+   PRÓXIMOS MÓDULOS
+========================================================= */
+
+.coming-soon-card {
+    padding: 60px 20px;
+
+    border: 1px dashed #c9d5e1;
+    border-radius: 12px;
+
+    background: white;
+
+    text-align: center;
+}
+
+.coming-soon-card > i {
+    margin-bottom: 13px;
+
+    color: #9aabc0;
+
+    font-size: 40px;
+}
+
+.coming-soon-card h2 {
+    font-size: 18px;
+}
+
+.coming-soon-card p {
+    margin: 8px 0;
+
+    color: var(--text-soft);
+
+    font-size: 11px;
+}
+
+.coming-soon-card span {
+    display: inline-block;
+
+    margin-top: 5px;
+    padding: 5px 9px;
+
+    border-radius: 20px;
+
+    color: var(--primary);
+    background: #edf4ff;
+
+    font-size: 9px;
+    font-weight: 700;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 1200px) {
+
+    .parking-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .parking-side-panel {
+        position: static;
+
+        display: grid;
+
+        grid-template-columns:
+            1fr 1fr;
+    }
+
+}
+
+
+@media (max-width: 900px) {
+
+    .sidebar {
+        width: 190px;
+    }
+
+    .main-content {
+        margin-left: 190px;
+    }
+
+    .resident-summary,
+    .parking-summary {
+        grid-template-columns: 1fr;
+    }
+
+    .residents-card {
+        overflow-x: auto;
+    }
+
+    .residents-table-header,
+    .resident-row {
+        min-width: 800px;
+    }
+
+}
+
+
+@media (max-width: 700px) {
+
+    .sidebar {
+        display: none;
+    }
+
+    .main-content {
+        margin-left: 0;
+    }
+
+    .topbar {
+        position: static;
+    }
+
+    .topbar-user {
+        display: none;
+    }
+
+    .page-container {
+        padding: 16px;
+    }
+
+    .page-header,
+    .parking-toolbar,
+    .residents-toolbar {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .global-search {
+        width: 100%;
+    }
+
+    .parking-side-panel {
+        grid-template-columns: 1fr;
+    }
+
+    .verification-fields {
+        grid-template-columns: 1fr;
+    }
+
+}
+
+/* =========================================================
+   VEHÍCULOS EN LISTADO DE RESIDENTES
+========================================================= */
+
+.resident-vehicles {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.resident-vehicle-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 7px;
+
+    padding: 5px 7px;
+
+    border: 1px solid #e2e8ef;
+    border-radius: 6px;
+
+    background: #f8fafc;
+
+    white-space: nowrap;
+}
+
+.resident-vehicle-item strong {
+    color: #26394c;
+
+    font-size: 10px;
+}
+
+.resident-vehicle-item span {
+    padding: 3px 5px;
+
+    border-radius: 4px;
+
+    color: #1769ff;
+    background: #eaf2ff;
+
+    font-size: 8px;
+    font-weight: 700;
+}
+
+/* =========================================================
+   EDICIÓN ESTACIONAMIENTO
+========================================================= */
+
+.detail-title-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+
+    margin-bottom: 12px;
+}
+
+.detail-title-row h3 {
+    margin: 0;
+}
+
+.detail-edit-button,
+.save-edit-button,
+.secondary-edit-button {
+    border-radius: 7px;
+
+    font-size: 10px;
+    font-weight: 600;
+
+    cursor: pointer;
+}
+
+.detail-edit-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+
+    padding: 7px 9px;
+
+    border: 1px solid #b8cff7;
+
+    color: var(--primary);
+    background: #edf4ff;
+}
+
+.detail-edit-button:hover {
+    background: #e1edff;
+}
+
+
+.detail-section-title {
+    margin: 15px 0 8px;
+    padding-bottom: 6px;
+
+    border-bottom: 1px solid #e4eaf1;
+
+    color: #65778a;
+
+    font-size: 9px;
+    font-weight: 800;
+
+    letter-spacing: .6px;
+    text-transform: uppercase;
+}
+
+
+.detail-authorized {
+    color: var(--success);
+}
+
+.detail-not-authorized {
+    color: var(--danger);
+}
+
+
+/* MODO EDICIÓN */
+
+.development-badge {
+    padding: 4px 7px;
+
+    border-radius: 20px;
+
+    color: #7a5700;
+    background: #fff2c7;
+
+    font-size: 8px;
+    font-weight: 700;
+
+    text-transform: uppercase;
+}
+
+
+.edit-info-box {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+
+    margin: 12px 0;
+    padding: 10px;
+
+    border: 1px solid #dce6f0;
+    border-radius: 8px;
+
+    background: #f7faff;
+}
+
+.edit-info-box span {
+    color: var(--text-soft);
+
+    font-size: 9px;
+}
+
+.edit-info-box strong {
+    font-size: 12px;
+}
+
+.edit-info-box small {
+    color: var(--text-soft);
+
+    font-size: 9px;
+}
+
+
+.parking-edit-form {
+    display: flex;
+    flex-direction: column;
+    gap: 11px;
+}
+
+
+.rental-fields {
+    display: flex;
+    flex-direction: column;
+    gap: 11px;
+}
+
+
+.edit-field {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.edit-field label {
+    color: #56687a;
+
+    font-size: 9px;
+    font-weight: 700;
+}
+
+.edit-field label span {
+    color: var(--danger);
+}
+
+
+.edit-field input,
+.edit-field select,
+.edit-field textarea {
+    width: 100%;
+
+    padding: 9px 10px;
+
+    border: 1px solid #d8e1eb;
+    border-radius: 7px;
+
+    outline: none;
+
+    color: var(--text);
+    background: white;
+
+    font-size: 10px;
+}
+
+.edit-field textarea {
+    resize: vertical;
+
+    min-height: 80px;
+}
+
+
+.edit-field input:focus,
+.edit-field select:focus,
+.edit-field textarea:focus {
+    border-color: #8db5ff;
+
+    box-shadow:
+        0 0 0 3px rgba(23, 105, 255, .08);
+}
+
+
+.required-note {
+    padding: 8px 9px;
+
+    border-radius: 6px;
+
+    color: #80611d;
+    background: #fff9e9;
+
+    font-size: 8px;
+    line-height: 1.5;
+}
+
+
+.edit-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 7px;
+
+    padding-top: 4px;
+}
+
+
+.secondary-edit-button {
+    padding: 8px 11px;
+
+    border: 1px solid #d4dde7;
+
+    color: #536475;
+    background: white;
+}
+
+
+.save-edit-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+
+    padding: 8px 11px;
+
+    border: 0;
+
+    color: white;
+    background: var(--primary);
+}
+
+
+.save-edit-button:hover {
+    background: var(--primary-dark);
+}
+
+/* =========================================================
+   AJUSTE PANEL LATERAL / FORMULARIO ESTACIONAMIENTO
+========================================================= */
+
+.parking-side-panel {
+    position: sticky;
+    top: 85px;
+
+    max-height: calc(100vh - 105px);
+
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.verification-card {
+    flex: 0 0 auto;
+}
+
+.detail-card {
+    flex: 1 1 auto;
+
+    min-height: 0;
+    max-height: calc(100vh - 390px);
+
+    overflow-y: auto;
+    overflow-x: hidden;
+
+    scrollbar-width: thin;
+    scrollbar-color: #c3cfdb transparent;
+}
+
+.detail-card::-webkit-scrollbar {
+    width: 6px;
+}
+
+.detail-card::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.detail-card::-webkit-scrollbar-thumb {
+    background: #c3cfdb;
+    border-radius: 10px;
+}
+
+.detail-card::-webkit-scrollbar-thumb:hover {
+    background: #9eafc0;
+}
+
+.detail-card:has(.parking-edit-form) {
+    padding-bottom: 12px;
+}
+
+.detail-card:has(.parking-edit-form) .detail-parking-number {
+    margin-bottom: 8px;
+}
+
+.parking-edit-form .edit-actions {
+    position: sticky;
+    bottom: -1px;
+
+    margin: 8px -2px -2px;
+    padding: 10px 2px 2px;
+
+    background: white;
+
+    border-top: 1px solid #edf1f5;
+
+    z-index: 5;
+}
+
+.detail-card:has(.parking-edit-form) {
+    padding-bottom: 12px;
+}
+
+.detail-card:has(.parking-edit-form) .detail-parking-number {
+    margin-bottom: 8px;
+}
+
+.parking-edit-form .edit-actions {
+    position: sticky;
+    bottom: -1px;
+
+    margin: 8px -2px -2px;
+    padding: 10px 2px 2px;
+
+    background: white;
+
+    border-top: 1px solid #edf1f5;
+
+    z-index: 5;
+}
+
+/* =========================================================
+   HISTORIAL DE CAMBIOS
+========================================================= */
+
+.history-summary {
+    margin-bottom: 14px;
+}
+
+.history-summary-card {
+    width: 220px;
+
+    padding: 14px 16px;
+
+    background: white;
+
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+}
+
+.history-summary-card span {
+    display: block;
+
+    color: var(--text-soft);
+
+    font-size: 9px;
+}
+
+.history-summary-card strong {
+    display: block;
+
+    margin-top: 4px;
+
+    color: var(--primary);
+
+    font-size: 20px;
+}
+
+
+/* TABLA */
+
+.history-card {
+    overflow: hidden;
+
+    background: white;
+
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+}
+
+
+.history-table-header,
+.history-row {
+    display: grid;
+
+    grid-template-columns:
+        120px
+        minmax(140px, 1fr)
+        135px
+        90px
+        55px
+        minmax(160px, 1fr)
+        100px;
+
+    align-items: center;
+
+    gap: 12px;
+
+    padding: 13px 16px;
+}
+
+
+.history-table-header {
+    background: #f5f8fc;
+
+    color: #718096;
+
+    font-size: 9px;
+    font-weight: 700;
+
+    text-transform: uppercase;
+}
+
+
+.history-row {
+    min-height: 61px;
+
+    border-top: 1px solid #edf1f5;
+
+    font-size: 10px;
+}
+
+
+.history-row:hover {
+    background: #f8fbff;
+}
+
+
+.history-date strong,
+.history-date small {
+    display: block;
+}
+
+.history-date small {
+    margin-top: 3px;
+
+    color: var(--text-soft);
+}
+
+
+.history-phone {
+    color: #536475;
+}
+
+
+.history-plate {
+    display: inline-flex;
+
+    padding: 5px 7px;
+
+    border-radius: 5px;
+
+    color: var(--primary);
+    background: #edf4ff;
+
+    font-weight: 800;
+}
+
+
+.history-parking {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    min-width: 31px;
+
+    padding: 5px;
+
+    border-radius: 5px;
+
+    color: #087649;
+    background: #e9f8f1;
+
+    font-weight: 800;
+}
+
+
+.history-movement {
+    font-weight: 600;
+}
+
+
+.history-detail-button {
+    padding: 6px 8px;
+
+    border: 1px solid #b8cff7;
+    border-radius: 6px;
+
+    color: var(--primary);
+    background: #edf4ff;
+
+    font-size: 9px;
+    font-weight: 700;
+
+    cursor: pointer;
+}
+
+
+.history-detail-button:hover {
+    background: #dfebff;
+}
+
+
+/* SIN REGISTROS */
+
+.history-empty {
+    min-height: 190px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    padding: 25px;
+
+    color: var(--text-soft);
+
+    text-align: center;
+}
+
+.history-empty i {
+    margin-bottom: 10px;
+
+    color: #a7b7c7;
+
+    font-size: 27px;
+}
+
+.history-empty strong {
+    color: var(--text);
+
+    font-size: 12px;
+}
+
+.history-empty p {
+    max-width: 330px;
+
+    margin-top: 5px;
+
+    font-size: 9px;
+    line-height: 1.5;
+}
+
+
+/* DETALLE */
+
+.history-detail-card {
+    display: none;
+
+    margin-top: 15px;
+    padding: 18px;
+
+    background: white;
+
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+}
+
+
+.history-detail-card.visible {
+    display: block;
+}
+
+
+.history-detail-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 15px;
+
+    margin-bottom: 16px;
+}
+
+
+.history-detail-header span {
+    color: var(--text-soft);
+
+    font-size: 9px;
+}
+
+
+.history-detail-header h3 {
+    margin-top: 3px;
+
+    font-size: 15px;
+}
+
+
+.history-close-button {
+    width: 31px;
+    height: 31px;
+
+    border: 1px solid #d7e0ea;
+    border-radius: 7px;
+
+    color: #65778a;
+    background: white;
+
+    cursor: pointer;
+}
+
+
+.history-detail-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, minmax(180px, 1fr));
+
+    gap: 10px;
+}
+
+
+.history-detail-grid > div {
+    padding: 10px;
+
+    border: 1px solid #e2e8ef;
+    border-radius: 7px;
+
+    background: #f8fafc;
+}
+
+
+.history-detail-grid span {
+    display: block;
+
+    margin-bottom: 4px;
+
+    color: var(--text-soft);
+
+    font-size: 8px;
+}
+
+
+.history-detail-grid strong {
+    font-size: 10px;
+}
+
+
+.history-detail-observation {
+    margin-top: 12px;
+    padding: 11px;
+
+    border-radius: 7px;
 
     background: #fff9e9;
 }
+
+
+.history-detail-observation span {
+    color: #80611d;
+
+    font-size: 8px;
+    font-weight: 700;
+
+    text-transform: uppercase;
+}
+
+
+.history-detail-observation p {
+    margin-top: 5px;
+
+    color: #5c4a20;
+
+    font-size: 10px;
+    line-height: 1.5;
+}
+
+
+.history-detail-footer {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+
+    margin-top: 13px;
+
+    color: var(--text-soft);
+
+    font-size: 9px;
+}
+
+
+@media (max-width: 1050px) {
+
+    .history-table-header,
+    .history-row {
+        grid-template-columns:
+            105px
+            minmax(120px, 1fr)
+            100px
+            75px
+            45px
+            minmax(130px, 1fr)
+            90px;
+    }
+
+}
+
+
+@media (max-width: 850px) {
+
+    .history-card {
+        overflow-x: auto;
+    }
+
+    .history-table-header,
+    .history-row {
+        min-width: 850px;
+    }
+
+    .history-detail-grid {
+        grid-template-columns: 1fr;
+    }
+
+}
+/* Módulos de Registro */
+.nova-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(175px,1fr));gap:14px;margin:18px 0 24px}
+.nova-stat,.nova-panel{background:#fff;border:1px solid #e5eaf2;border-radius:16px;box-shadow:0 5px 20px rgba(25,43,71,.04)}
+.nova-stat{padding:20px;display:flex;flex-direction:column;gap:8px}.nova-stat span{font-size:13px;color:#64748b}.nova-stat strong{font-size:26px;color:#183151}
+.nova-panel{padding:22px;margin:18px 0}.nova-panel h2{font-size:18px;margin:0 0 16px;color:#183151}.nova-panel h2 span{color:#23836b}
+.nova-form{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:16px}.nova-form label{display:flex;flex-direction:column;gap:7px;font-size:13px;font-weight:600;color:#34465f}.nova-form input,.nova-form select,.nova-form textarea,.nova-toolbar input,.nova-row select{width:100%;border:1px solid #d9e2ed;border-radius:9px;padding:10px;font:inherit;background:white;color:#183151}.nova-wide{grid-column:1/-1}.nova-primary,.nova-row button,.nova-filters button{border:0;border-radius:9px;background:#174c84;color:#fff;padding:10px 15px;font:inherit;cursor:pointer}.nova-primary:hover,.nova-row button:hover{background:#103b69}
+.nova-row{display:flex;justify-content:space-between;align-items:center;gap:15px;border-top:1px solid #e8edf4;padding:13px 0;color:#183151}.nova-row:first-child{border-top:0}.nova-row small{display:block;color:#64748b;margin-top:3px}.nova-row-actions{display:flex;gap:8px;align-items:center}.nova-row-actions select{max-width:200px}.nova-row.pending{border-left:3px solid #d69b27;padding-left:12px}.nova-empty{color:#64748b;margin:0;padding:14px 0}.nova-space{display:inline-flex;margin:5px;padding:9px 12px;border-radius:9px;background:#e7f5ed;color:#167451}.nova-space.busy{background:#fff0e6;color:#b65a25}
+.nova-toolbar{display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin:18px 0}.nova-toolbar>input{max-width:320px}.nova-toolbar label{display:flex;align-items:center;gap:7px;font-size:13px;color:#64748b}.nova-filters{display:flex;flex-wrap:wrap;gap:6px}.nova-filters button{background:#e9eff6;color:#38506b;padding:8px 11px}.nova-filters button.active{background:#174c84;color:#fff}
+#sectionHistorial .history-table-header,#sectionHistorial .history-row{grid-template-columns:120px 125px minmax(120px,1fr) 70px 90px minmax(135px,1fr) 110px}
+#sectionHistorial .history-row{word-break:break-word}.history-detail-grid strong{word-break:break-word}
+@media(max-width:850px){#sectionHistorial .history-table-header{display:none}#sectionHistorial .history-row{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;padding:16px}.nova-row{align-items:flex-start;flex-direction:column}.nova-row-actions{width:100%;flex-wrap:wrap}.nova-toolbar>input{max-width:100%}}
+
+/* Control de estacionamientos de visita */
+.nova-phone{display:flex;align-items:center;overflow:hidden;border:1px solid #d9e2ed;border-radius:9px;background:white}.nova-phone>span{padding:10px 12px;color:#183151;background:#edf3f8;font-weight:700;border-right:1px solid #d9e2ed}.nova-phone input{border:0!important;border-radius:0!important;min-width:0}.nova-form label small{font-size:11px;font-weight:400;color:#64748b}.nova-plate-alert{color:#b33131!important;font-weight:700!important}.nova-form-info{align-self:center;padding:10px 12px;background:#f3f7fb;border-radius:9px;color:#34465f;line-height:1.7}.nova-availability{display:flex;flex-wrap:wrap;gap:6px}.nova-space{display:inline-flex;flex-direction:column;min-width:125px;gap:3px}.nova-space small{font-size:11px}.nova-visit{align-items:flex-start;border-radius:10px;padding:15px}.nova-visit.warning{background:#fff6d9;border-left:4px solid #e1ad20}.nova-visit.overdue{background:#fde9e9;border-left:4px solid #d94545}.nova-visit-main{min-width:230px;flex:1}.nova-visit-controls{display:grid;grid-template-columns:repeat(2,minmax(170px,1fr));gap:10px;max-width:600px;flex:1}.nova-visit-controls label{display:flex;flex-direction:column;gap:5px;font-size:12px;color:#40526b}.nova-visit-controls textarea,.nova-visit-controls input,.nova-visit-controls select{width:100%;border:1px solid #d9e2ed;border-radius:8px;padding:8px;font:inherit;color:#183151;background:#fff}.nova-visit-controls button{justify-self:start}.nova-extension{grid-column:1/-1;display:grid;grid-template-columns:130px minmax(170px,1fr) auto;gap:8px;align-items:end;padding:10px;background:#f5f8fc;border-radius:9px}.nova-time{display:block;margin-top:8px;font-size:13px;font-weight:700;color:#256d58}.nova-time.warning{color:#a77900}.nova-time.overdue{color:#be3030}
+@media(max-width:900px){.nova-visit-controls{width:100%;max-width:none}.nova-extension{grid-template-columns:1fr 1fr}.nova-extension button{grid-column:1/-1}}
+@media(max-width:600px){.nova-visit-controls,.nova-extension{grid-template-columns:1fr}.nova-extension button{grid-column:auto}}
+
+/* Visitas activas: resumen horizontal y detalle editable */
+.nova-visit-summary{display:grid;grid-template-columns:minmax(180px,1.2fr) minmax(230px,1.3fr) auto;align-items:center;gap:20px;padding:16px 18px;border-bottom:1px solid #e8edf4}
+.nova-visit-summary .nova-visit-main{min-width:0}.nova-visit-summary .nova-visit-dates{min-width:0}.nova-visit-summary .nova-time{margin-top:4px}.nova-detail-button,.nova-exit-button{border:0;border-radius:9px;background:#174c84;color:white;padding:10px 18px;cursor:pointer;font:inherit;white-space:nowrap}.nova-detail-button:hover,.nova-exit-button:hover{background:#103b69}
+.nova-modal[hidden]{display:none}.nova-modal{position:fixed;inset:0;z-index:1000;display:flex;align-items:center;justify-content:center;padding:20px}.nova-modal-backdrop{position:absolute;inset:0;background:rgba(16,35,57,.58)}.nova-modal-dialog{position:relative;width:min(780px,100%);max-height:min(92vh,900px);overflow:auto;background:#fff;border-radius:18px;box-shadow:0 25px 70px rgba(0,0,0,.25);padding:24px}.nova-modal-open{overflow:hidden}.nova-modal-header{display:flex;justify-content:space-between;align-items:start;gap:16px;border-bottom:1px solid #e5eaf2;padding-bottom:14px;margin-bottom:16px}.nova-modal-header small{color:#64748b}.nova-modal-header h2{font-size:21px;margin:4px 0 0;color:#183151}.nova-modal-close{border:0;background:#eef3f8;color:#183151;border-radius:8px;width:36px;height:36px;font-size:25px;cursor:pointer}
+.nova-visit-detail{display:block;padding:0}.nova-detail-status{padding:12px 14px;border-radius:10px;background:#f2f7fb;margin-bottom:18px}.nova-detail-status .nova-time{margin:0}.nova-detail-status small{display:block;color:#64748b;margin-top:4px}.nova-detail-actions{grid-column:1/-1;display:flex;justify-content:flex-end}.nova-detail-section{border-top:1px solid #e5eaf2;margin-top:22px;padding-top:18px}.nova-detail-section h3{font-size:16px;color:#183151;margin:0 0 10px}.nova-detail-section p{font-size:13px;color:#64748b}.nova-detail-fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;align-items:end;margin-bottom:12px}.nova-detail-fields label{display:flex;flex-direction:column;gap:5px;color:#40526b;font-size:12px}.nova-detail-fields input,.nova-detail-fields select,.nova-detail-fields textarea{width:100%;border:1px solid #d9e2ed;border-radius:8px;padding:9px;font:inherit;color:#183151}.nova-detail-fields button{border:0;border-radius:9px;background:#174c84;color:white;padding:10px 15px;cursor:pointer}.nova-permissions{display:flex;flex-direction:column;gap:5px;background:#fff8e6;border-radius:9px;padding:12px;margin-top:18px;color:#765719}
+@media(max-width:700px){.nova-visit-summary{grid-template-columns:1fr auto;gap:8px}.nova-visit-summary .nova-visit-dates{grid-column:1/-1;grid-row:2}.nova-detail-button{grid-column:2;grid-row:1}.nova-detail-fields{grid-template-columns:1fr}.nova-modal-dialog{padding:16px}}
+
+/* Encomiendas organizadas por pestañas */
+.nova-module-tabs{display:flex;flex-wrap:wrap;gap:8px;margin:18px 0 20px;border-bottom:1px solid #e2e9f1;padding-bottom:10px}
+.nova-module-tabs button{border:1px solid #dce5ef;background:#fff;color:#40546f;border-radius:9px;padding:11px 16px;font:inherit;font-weight:600;cursor:pointer}
+.nova-module-tabs button.active{background:#174c84;border-color:#174c84;color:#fff}
+.nova-module-tabs button span{display:inline-flex;align-items:center;justify-content:center;min-width:22px;height:22px;border-radius:20px;background:#e4eef8;color:#174c84;font-size:12px;margin-left:5px}
+.nova-module-tabs button.active span{background:#fff;color:#174c84}
+#sectionEncomiendas [hidden]{display:none!important}
+.nova-package{align-items:flex-start}.nova-package-state{font-weight:700}.nova-package-state.pending{color:#a47412}.nova-package-state.delivered{color:#178264}
+.nova-package-delivery{display:flex;gap:10px;align-items:end;min-width:min(340px,100%)}.nova-package-delivery label{display:flex;flex-direction:column;gap:5px;color:#40546f;font-size:12px;min-width:190px}.nova-package-delivery textarea{border:1px solid #d9e2ed;border-radius:8px;padding:8px;font:inherit;width:100%}
+.nova-search-form{margin:12px 0 18px}.nova-search-form .nova-secondary{justify-self:start;align-self:end;border:1px solid #cdd9e7;background:#eef3f8;color:#174c84;border-radius:9px;padding:10px 15px;font:inherit;cursor:pointer}.nova-result-count{font-size:13px;color:#64748b;margin:8px 0 15px}
+@media(max-width:700px){.nova-package-delivery{width:100%;flex-wrap:wrap}.nova-package-delivery label{flex:1}.nova-module-tabs button{flex:1 1 145px}}
